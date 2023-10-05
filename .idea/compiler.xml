@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="atbook-ums-service" />
+        <module name="atbook-authentication-service" />
+        <module name="atbook-context-utils" />
+        <module name="atbook-gateway-main" />
+        <module name="atbook-book-service" />
+        <module name="atbook-utils" />
+        <module name="atbook-stf-service" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="atbook-authentication-service" options="-parameters" />
+      <module name="atbook-book-service" options="-parameters" />
+      <module name="atbook-context-utils" options="-parameters" />
+      <module name="atbook-gateway-main" options="-parameters" />
+      <module name="atbook-stf-service" options="-parameters" />
+      <module name="atbook-ums-service" options="-parameters" />
+      <module name="atbook-utils" options="-parameters" />
+    </option>
+  </component>
+</project>

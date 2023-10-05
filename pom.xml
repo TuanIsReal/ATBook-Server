@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>vn.com.tuanisreal</groupId>
+    <artifactId>atbook-server</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>atbook-utils</module>
+        <module>atbook-context-utils</module>
+        <module>atbook-gateway-main</module>
+        <module>atbook-authentication-service</module>
+        <module>atbook-ums-service</module>
+        <module>atbook-book-service</module>
+        <module>atbook-stf-service</module>
+    </modules>
+</project>
