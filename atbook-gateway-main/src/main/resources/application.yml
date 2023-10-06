@@ -1,0 +1,5 @@
+application:
+  http:
+    port: 9090
+    workerPoolSize: 20
+    timeout: 120000
