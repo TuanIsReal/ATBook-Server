@@ -7,18 +7,6 @@ public class HTTPUtil {
     private HTTPUtil() {
     }
 
-    public static void sendServerMaintainceResponse(HttpServerResponse httpServerResponse, MaintainceInfoResponse responseData) {
-        Response response = new Response(ResponseCode.SERVER_MAINTAIN, responseData);
-        String jsonResponse = JsonUtils.toJson(response);
-        sendResponse(httpServerResponse, jsonResponse);
-    }
-
-    public static void sendServerMaintainceResponse(ChannelHandlerContext context, MaintainceInfoResponse responseData) {
-        Response response = new Response(ResponseCode.SERVER_MAINTAIN, responseData);
-        String jsonResponse = JsonUtils.toJson(response);
-        sendResponse(context, jsonResponse);
-    }
-
     public static void sendInternalServerErrorResponse(String requestId) {
         Response response = new Response(ResponseCode.UNKNOWN_ERROR);
         sendResponse(requestId, response);
@@ -42,5 +30,64 @@ public class HTTPUtil {
     public static void sendBadRequestResponse(String requestId) {
         Response response = new Response(ResponseCode.WRONG_DATA_FORMAT);
         sendResponse(requestId, response);
+    }
+
+    public static void sendResponse(String requestId, Response response) {
+        try {
+            NettyHttpData data = HttpRepository.pull(requestId);
+            if (data != null) {
+                int responseCode = response.getCode();
+                if (responseCode == ResponseCode.UNKNOWN_ERROR) {
+                    log.info(Constant.Log.ERROR + "{}", data.getRequestData());
+                } else {
+                }
+                ChannelHandlerContext context = data.getContext();
+                String jsonResponse = JsonUtils.toJson(response);
+                sendResponse(context, jsonResponse);
+                long now = System.currentTimeMillis();
+                long processTime = (now - data.getStartTime());
+                if (processTime > 3000) {
+                try {
+                    GatewayLogData logData = new GatewayLogData(data, response, processTime, requestId);
+                    logService.log(logData.toMap());
+                } catch (Exception ex){
+                }
+
+            }
+        } catch (Exception ex) {
+        } finally {
+            HttpRepository.pull(requestId);
+            ControllerRepository.remove(requestId);
+        }
+    }
+
+    public static void sendResponse(String requestId, Response response, BaseAPI api) {
+        try {
+            NettyHttpData data = HttpRepository.pull(requestId);
+            if (data != null) {
+                int responseCode = response.getCode();
+                if (responseCode == ResponseCode.UNKNOWN_ERROR) {
+                    log.error(Constant.Log.ERROR + "{}", data.getRequestData());
+                } else {
+                }
+                ChannelHandlerContext context = data.getContext();
+                String jsonResponse = JsonUtils.toJson(response);
+                sendResponse(context, jsonResponse);
+                long now = System.currentTimeMillis();
+                long processTime = (now - data.getStartTime());
+                if (processTime > 3000) {
+                }
+
+                try {
+                    GatewayLogData logData = new GatewayLogData(data, response, processTime, requestId, api);
+                    logService.log(logData.toMap());
+                } catch (Exception ex){
+                }
+            }
+        } catch (Exception ex) {
+        } finally {
+            HttpRepository.pull(requestId);
+            ControllerRepository.remove(requestId);
+        }
     }
 }
