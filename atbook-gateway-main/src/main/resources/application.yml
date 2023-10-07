@@ -3,3 +3,36 @@ application:
     port: 9090
     workerPoolSize: 20
     timeout: 120000
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: merscov99
+
+    cache:
+      exchangeName: exchange.cache
+      routingKey: routingKey.cache
+      queues:
+        ums: cache.ums
+
+    context:
+      exchangeName: exchange.context
+
+      action:
+        requestQueueName: context.action.request
+        requestQueueRoutingKey: routingKey.context.action.request
+        responseQueueName: context.action.response
+        responseQueueRoutingKey: routingKey.context.action.response
+
+      authentication:
+        requestQueueName: context.authentication.request
+        requestQueueRoutingKey: routingKey.context.authentication.request
+        responseQueueName: context.authentication.response
+        responseQueueRoutingKey: routingKey.context.authentication.response
+
+      user:
+        requestQueueName: context.user.request
+        requestQueueRoutingKey: routingKey.context.user.request
+        responseQueueName: context.user.response
+        responseQueueRoutingKey: routingKey.context.user.response
