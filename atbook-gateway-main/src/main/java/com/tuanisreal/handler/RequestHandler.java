@@ -1,6 +1,7 @@
 package com.tuanisreal.handler;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("")
 @AllArgsConstructor
+@Slf4j
 public class RequestHandler {
 
     private APIManager apiManager;
@@ -51,11 +53,13 @@ public class RequestHandler {
         ControllerCache.add(requestId, baseAPI);
 
         try {
+            log.info("----Handler API: {}", apiName);
             baseAPI.handleRequest(payload);
             response = baseAPI.getResponseAPI();
         } catch (ApplicationException ex){
             return new Response(ex.getErrorCode());
         } catch (Exception ex) {
+            log.info("----Error Handler API: {}", apiName);
             return new Response(ResponseCode.UNKNOWN_ERROR);
         }
         return response;

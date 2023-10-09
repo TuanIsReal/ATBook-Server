@@ -2,6 +2,7 @@ package com.tuanisreal.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import com.tuanisreal.constant.ActionName;
 import com.tuanisreal.constant.ResponseCode;
@@ -17,13 +18,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Slf4j
-@AllArgsConstructor
 public abstract class BaseAPI {
 
+    @Autowired
     protected ApplicationContext applicationContext;
-
+    @Autowired
     protected UserPublisher userPublisher;
-
+    @Autowired
     protected AuthenticationPublisher authenticationPublisher;
 
     private static final int MAX_STEP_NUMBER = 30;
@@ -191,6 +192,7 @@ public abstract class BaseAPI {
     }
 
     protected final void sendRealTimeRequest(APIGatewayPublisher publisher, int step, ActionName actionName, Object requestData) {
+        log.info("sendContextRequest");
         publisher.sendContextRequest(requestId, step, actionName, requestData);
         addSendingStep(step);
     }

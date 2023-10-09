@@ -1,0 +1,23 @@
+application:
+  database:
+    mongodb:
+      uri: mongodb://localhost:27017
+
+  session:
+    timeout: 30
+  refreshToken:
+    timeout: 3
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: merscov99
+
+    context:
+      exchangeName: exchange.context
+      authentication:
+        requestQueueName: context.authentication.request
+        requestQueueRoutingKey: routingKey.context.authentication.request
+        responseQueueName: context.authentication.response
+        responseQueueRoutingKey: routingKey.context.authentication.response
