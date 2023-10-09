@@ -1,13 +1,16 @@
 package com.tuanisreal.controller;
 
-import com.tuanisreal.constant.ResponseCode;
-import com.tuanisreal.controller.response.ContextResponse;
-import com.tuanisreal.controller.response.Response;
-import com.tuanisreal.rbmq.publisher.api.AuthenticationPublisher;
-import com.tuanisreal.rbmq.publisher.api.UserPublisher;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
+import com.tuanisreal.constant.ActionName;
+import com.tuanisreal.constant.ResponseCode;
+import com.tuanisreal.controller.request.Request;
+import com.tuanisreal.controller.response.ContextResponse;
+import com.tuanisreal.controller.response.Response;
+import com.tuanisreal.rbmq.publisher.APIGatewayPublisher;
+import com.tuanisreal.rbmq.publisher.api.AuthenticationPublisher;
+import com.tuanisreal.rbmq.publisher.api.UserPublisher;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -252,10 +255,6 @@ public abstract class BaseAPI {
 
     protected String getRequestId() {
         return requestId;
-    }
-
-    protected String getAPIName() {
-        return applicationContext.getBeanNamesForType(this.getClass())[0];
     }
 
 }
