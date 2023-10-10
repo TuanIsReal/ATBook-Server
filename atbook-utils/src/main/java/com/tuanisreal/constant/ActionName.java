@@ -7,5 +7,6 @@ public enum ActionName {
     GET_USER_LOGIN,
     CHANGE_EMAIL_PASSWORD,
     UPDATE_SESSION,
+    GET_NEW_TOKEN_BY_REFRESH_TOKEN,
     TEST_USER
 }

@@ -42,6 +42,10 @@ public class UserSaltRepositoryImpl extends BaseRepository implements UserSaltRe
 
     @Override
     public String getSalt(String userId) {
-        return null;
+        String result;
+        BasicDBObject query = new BasicDBObject(USER_ID, userId);
+        DBObject resultObj = getCollection().findOne(query);
+        result = (String) resultObj.get(SALT);
+        return result;
     }
 }

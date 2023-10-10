@@ -20,8 +20,7 @@ public class ChangeEmailPasswordAPI implements APIHandler {
     @Override
     public Response execute(String requestPayload) {
         ChangeEmailPasswordRequest requestData = JsonUtil.toObject(requestPayload, ChangeEmailPasswordRequest.class);
-        boolean isChangeAccount = userService.changeEmailPassword(requestData.getUserId(), requestData.getEmail(),
-                requestData.getOldPassword(), requestData.getNewPassword());
+        boolean isChangeAccount = userService.changeEmailPassword(requestData.getUserId(), requestData.getEmail(), requestData.getNewPassword());
         ChangeEmailPasswordResponse response = new ChangeEmailPasswordResponse(isChangeAccount);
         return new Response(response);
     }

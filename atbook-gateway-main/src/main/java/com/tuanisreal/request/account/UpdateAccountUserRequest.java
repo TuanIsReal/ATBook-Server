@@ -14,9 +14,6 @@ public class UpdateAccountUserRequest extends Request {
     @JsonProperty(ParamKey.EMAIL)
     private String email;
 
-    @JsonProperty(ParamKey.OLD_PASSWORD)
-    private String oldPassword;
-
-    @JsonProperty(ParamKey.NEW_PASSWORD)
+    @JsonProperty(ParamKey.PASSWORD)
     private String newPassword;
 }

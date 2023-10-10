@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changeEmailPassword(String userId, String email, String oldPassword, String newPassword) {
-        if (Objects.isNull(email) || Objects.isNull(oldPassword) || Objects.isNull(newPassword) || oldPassword.equals(newPassword)){
+    public boolean changeEmailPassword(String userId, String email, String newPassword) {
+        if (Objects.isNull(email) || Objects.isNull(newPassword)){
             throw new ApplicationException(ResponseCode.WRONG_DATA_FORMAT);
         }
 
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
             throw new ApplicationException(ResponseCode.INVALID_PASSWORD);
         }
 
-        if (userRepository.checkEmailVersion(email)){
+        if (userRepository.checkEmailExist(email)){
             throw new ApplicationException(ResponseCode.EMAIL_REGISTERED);
         }
 
@@ -73,12 +73,13 @@ public class UserServiceImpl implements UserService {
         checkUserExistAndRegisterComplete(user);
 
         String salt = userSaltRepository.getSalt(user.getUserId());
-        if (isCorrectPassword(oldPassword, user.getPassword(), salt)){
-            throw new ApplicationException(ResponseCode.INCORRECT_PASSWORD);
+        if (Objects.isNull(salt)){
+            throw new ApplicationException(ResponseCode.UNKNOWN_ERROR);
         }
 
         email = email.toLowerCase();
         String encryptedNewPassword;
+        log.info("newPassword: {}  -- salt: {}", newPassword, salt);
         encryptedNewPassword = PasswordUtil.encryptPassword(newPassword, salt);
         userRepository.changeEmailPassword(userId, email, encryptedNewPassword, DateTimeUtil.currentTime());
         user = userRepository.getUserByUserId(userId);

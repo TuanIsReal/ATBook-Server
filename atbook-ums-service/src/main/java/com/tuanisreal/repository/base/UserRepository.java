@@ -8,6 +8,6 @@ public interface UserRepository {
 
     User insertUser(User user);
     void updateUserId(String userId);
-    boolean checkEmailVersion(String email);
+    boolean checkEmailExist(String email);
     void changeEmailPassword(String userId, String email,String encryptedNewPassword, long time);
 }

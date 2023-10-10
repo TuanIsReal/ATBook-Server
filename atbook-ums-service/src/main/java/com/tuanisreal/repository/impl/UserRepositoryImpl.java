@@ -79,7 +79,7 @@ public class UserRepositoryImpl extends BaseRepository implements UserRepository
     }
 
     @Override
-    public boolean checkEmailVersion(String email) {
+    public boolean checkEmailExist(String email) {
         BasicDBObject query = new BasicDBObject();
 
         email = email.toLowerCase();
