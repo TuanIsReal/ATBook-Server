@@ -9,7 +9,6 @@ import com.tuanisreal.controller.request.ContextRequest;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Slf4j
-@ManagedResource
 public abstract class AbstractContextRequestContainer {
     protected static final int DEFAULT_CONTAINER_MAX_SIZE = 10;
 
@@ -39,10 +38,5 @@ public abstract class AbstractContextRequestContainer {
             ContextRequestProcessor contextRequestProcessor = new ContextRequestProcessor(this, contextRequestHandler);
             new Thread(contextRequestProcessor).start();
         }
-    }
-
-    @ManagedAttribute
-    public int getSize() {
-        return size();
     }
 }

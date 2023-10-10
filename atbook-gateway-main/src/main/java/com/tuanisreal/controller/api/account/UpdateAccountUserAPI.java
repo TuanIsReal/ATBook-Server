@@ -70,6 +70,6 @@ public class UpdateAccountUserAPI extends AuthenticatedAPI {
 
     @Override
     protected Response createResponseData() {
-        return null;
+        return new Response(changeEmailPasswordResponse);
     }
 }
